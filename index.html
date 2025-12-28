@@ -1,8 +1,0 @@
-<!DOCTYPE html><html><body style="margin:0;background:#111;color:white;text-align:center"><canvas id="c" width="600" height="400" style="background:#222;display:block;margin:auto"></canvas><script>
-
-let ctx=document.getElementById("c").getContext("2d"),p={x:280,y:350,w:40,h:40,vx:0,vy:0},b=[],go=false,k={},score=0;
-document.addEventListener("keydown",e=>k[e.key]=true);document.addEventListener("keyup",e=>k[e.key]=false);
-setInterval(()=>{if(!go)b.push({x:Math.random()*560,y:-20,w:20,h:20,s:2+Math.random()*3});},1000);
-function u(){if(go)return;let a=0.5,f=0.85,ms=5;if(k.ArrowLeft)p.vx-=a;if(k.ArrowRight)p.vx+=a;if(k.ArrowUp)p.vy-=a;if(k.ArrowDown)p.vy+=a;p.vx*=f;p.vy*=f;p.vx=Math.max(Math.min(p.vx,ms),-ms);p.vy=Math.max(Math.min(p.vy,ms),-ms);p.x+=p.vx;p.y+=p.vy;b.forEach(bb=>{bb.y+=bb.s;bb.x+=Math.sin(bb.y/20)*2;if(bb.x<p.x+p.w&&bb.x+bb.w>p.x&&bb.y<p.y+p.h&&bb.y+bb.h>p.y)go=true});b=b.filter(bb=>bb.y<400);}
-function d(){ctx.clearRect(0,0,600,400);ctx.fillStyle=go?'yellow':'lightblue';ctx.fillRect(p.x,p.y,p.w,p.h);ctx.fillStyle="red";b.forEach(bb=>ctx.fillRect(bb.x,bb.y,bb.w,bb.h));ctx.fillStyle="white";ctx.font="20px monospace";ctx.fillText("Score:"+score,10,25);if(go){ctx.fillStyle="white";ctx.font="32px monospace";ctx.textAlign="center";ctx.fillText("GAME OVER",300,200);}}
-function loop(){u();d();requestAnimationFrame(loop);}loop(); </script></body></html>
